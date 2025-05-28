@@ -1,0 +1,338 @@
+@use '../abstracts/' as *;
+
+.solutions{
+    &-heading{
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: space-between;
+        padding-inline: 10%;
+        align-items: center;
+        &.error{
+            padding-top: 20vh;
+            height: 60vh;
+        }
+        @include mobile{
+            height: 40vh;
+        }
+        h1{
+            width: fit-content;
+            text-align: center;
+            font-family: 'AntiqueMain';
+            font-size: 7rem;
+            color: $white;
+            line-height: 7rem;
+            z-index: 1;
+            letter-spacing: -5px;
+            @include mobile{
+                font-size: 3.2rem;
+                line-height: 3.5rem;
+                letter-spacing: -2px;
+            }
+        }
+    }
+    &-hero{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        @include mobile{
+            justify-content: flex-start;
+            padding-top: 60%;
+        }
+        &-head{
+            h1{
+                width: 100%;
+                text-align: center;
+                font-family: 'AntiqueMain';
+                font-size: 7rem;
+                color: $white;
+                line-height: 7rem;
+                z-index: 1;
+                letter-spacing: -5px;
+                @include mobile{
+                    font-size: 2.7rem;
+                    line-height: 3.7rem;
+                    letter-spacing: -3px;
+                }
+            }
+            h3{
+                width: 100%;
+                font-family: Matter;
+                font-weight: 500;
+                font-size: 2rem;
+                text-align: center;
+                color: $white;
+                .yellow{
+                    color: $accent;
+                }
+                .teal{
+                    color: $teal;
+                }
+                @include mobile{
+                    font-size: 1rem;
+                    line-height: 1.2rem;
+                }
+            }
+            position: relative;
+            z-index: 5;
+            pointer-events: none;
+        }
+        &-images{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            &-container{
+                width: 100%;
+                height: 100%;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                box-shadow: 0.7rem 0.8rem 2rem #00000030;
+            }
+            &-1{
+                width: 230px;
+                height: 200px;
+                position: absolute;
+                left: 25%;
+                top: 15%;
+                img{
+                    border-radius: 15px;
+                    object-position: 50% 10%;
+                    transform: rotate(-20deg);
+                }
+                @include mobile{
+                    width: 150px;
+                    height: 140px;
+                    left: 25%;
+                    top: 15%;
+                }
+            }
+            &-2{
+                width: 280px;
+                height: 240px;
+                position: absolute;
+                left: 60%;
+                top: 10%;
+                img{
+                    border-radius: 15px;
+                    transform: rotate(10deg);
+                }
+                @include mobile{
+                    width: 150px;
+                    height: 160px;
+                    left: 55%;
+                    top: 15%;
+                    filter: brightness(0.7);
+                    display: none;
+                }
+            }
+            &-3{
+                width: 330px;
+                height: 220px;
+                position: absolute;
+                left: 25%;
+                top: 65%;
+                img{
+                    border-radius: 15px;
+                    transform: rotate(-5deg);
+                }
+                @include mobile{
+                    width: 150px;
+                    height: 150px;
+                    left: 10%;
+                    top: 55%;
+                }
+            }
+            &-4{
+                width: 300px;
+                height: 220px;
+                position: absolute;
+                left: 60%;
+                top: 65%;
+                img{
+                    border-radius: 15px;
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(8deg);
+                }
+                @include mobile{
+                    width: 150px;
+                    height: 220px;
+                    left: 55%;
+                    top: 70%;
+                }
+            }
+        }
+    }
+}
+
+.service{
+    height: auto;
+    margin-bottom: 5vh;
+    @include mobile{
+        height: auto;
+        margin-bottom: 15vh;
+    }
+    &-container{
+        display: flex;
+        align-items: flex-start;
+        justify-content: var(--align);
+        gap: 50px;
+        @include mobile{
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+    }
+    &-icon{
+        width: 250px;
+        height: 250px;
+        object-fit: contain;
+        margin-top: 1rem;
+        z-index: 10;
+        img{
+            height: fit-content;
+        }
+        &.adjust{
+            margin-top: -18px;
+        }
+        @include mobile{
+            width: 180px;
+            height: auto;
+            display: flex;
+            align-items: flex-end;
+            img{
+                height: fit-content;
+            }
+        }
+    }
+    &-content{
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 10px;
+        @include mobile{
+            width: 100%;
+            align-items: flex-start;
+        }
+        h2{
+            font-family: 'Matter';
+            font-size: 2rem;
+            font-weight: 600;
+            pointer-events: none;
+            z-index: 2;
+            @include mobile{
+                text-align: left;
+                font-size: 1.6rem;
+                margin-top: 0px;
+            }
+        }
+        h5{
+            color: $white;
+            font-size: 1rem;
+            font-family: 'Matter';
+            font-weight: 400;
+            pointer-events: none;
+            z-index: 2;
+            @include mobile{
+                text-align: left;
+                font-size: 0.8rem;
+            }
+        }
+        &-link{
+            font-family: 'Matter';
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: $white;
+            position: relative;
+            width: fit-content;
+            overflow: hidden;
+            padding-bottom: 10px;
+            &:hover{
+                &::before, &::after{
+                    @include animate(moveline, 0.9s, ease-out, 1);
+                }
+            }
+            @include mobile{
+                font-size: 1rem;
+                font-weight: 500;
+            }
+            &::before{
+                position: absolute;
+                bottom: 0;
+                left: -110%;
+                content: "";
+                width: 100%;
+                height: 2px;
+                border-radius: 10px;
+                background-color: var(--color);
+            }
+            &::after{
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                content: "";
+                width: 100%;
+                height: 2px;
+                border-radius: 10px;
+                background-color: var(--color);
+            }
+            @include keyframes(moveline){
+                0%, 100%{transform: translateX(0);opacity: 1;}
+                97%{transform: translateX(100%);opacity: 1;}
+                98%{transform: translateX(100%);opacity: 0;}
+                98%{transform: translateX(0%);opacity: 1;}
+            }
+        }
+        &-backimg{
+            position: absolute;
+            margin: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 0;
+            @include mobile{
+                display: none;
+            }
+            &-box{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: visible !important;
+            }
+            &-img{
+                width: 200px;
+                height: 300px;
+                overflow: visible !important;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    transform: rotate(0deg);
+                    opacity: 0;
+                    border-radius: 20px;
+                    box-shadow: 0.5rem 0.5rem 2rem #00000030;
+                    transition: opacity 0.3s ease-in-out, transform 0.6s ease-in-out;
+                    &:hover{
+                        opacity: 1;
+                        transform: rotate(10deg)
+                    }
+                }
+            }
+        }
+    }
+}

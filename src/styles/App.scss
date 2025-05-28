@@ -1,0 +1,21 @@
+@forward './global';
+@forward './flex-grid';
+@forward './form';
+
+//pages
+@forward './pages/Home.scss';
+@forward './pages/Solutions.scss';
+@forward './pages/Work.scss';
+@forward './pages/Contact.scss';
+@forward './pages/Careers.scss';
+@forward './pages/Clients.scss';
+
+//components
+@forward './components/Background.scss';
+@forward './components/Buttons.scss';
+@forward './components/Navigation.scss';
+@forward './components/ClientSlider.scss';
+@forward './components/Cursor.scss';
+@forward './plugins/ReactCircularSlider.scss';
+@forward './plugins/ReactTDC.scss';
+@forward './components/Footer.scss';

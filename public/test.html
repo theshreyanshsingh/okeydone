@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body, .stage, .ring, .img {
+        width:100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        user-select:none;
+        }
+
+        .glass{
+            /* From https://css.glass */
+            /* background: rgba(255, 255, 255, 0.65);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8.2px);
+            -webkit-backdrop-filter: blur(8.2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px; */
+        }
+
+        .img{
+            border-radius: 20px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img .logo{
+            width: 140px;
+            height: 120px;
+            object-fit: contain;
+            margin: auto;
+            pointer-events: none;
+        }
+
+        .img .logo.large{
+            width: 180px;
+            height: 200px;
+        }
+
+        .img .logo.light{
+            filter: drop-shadow(0px 0px 10px #ffffff);
+        }
+        .img .logo.lightborder{
+            filter: drop-shadow(0px 0px 2px #ffffff);
+        }
+
+        .img .logo.dark{
+            filter: drop-shadow(0px 0px 25px #000000);
+        }
+
+        html, body, .stage {
+        overflow:hidden;
+        background: transparent;
+        transform: scale(1.15);
+        cursor: none;
+        }
+
+        div, svg {
+        position: absolute;
+        }
+
+        .container {
+        perspective: 2000px;
+        width: 300px;
+        height: 400px;  
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+        }
+        @media screen and (max-width: 768px){
+            html, body, .stage {
+                transform: scale(1);
+            }
+            #cmouse{
+                display: none !important;
+            }
+        }
+        #cmouse{
+            width: 100px;
+            height: 100px;
+            background-color: #A374FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: absolute;
+            z-index: 100;
+            border-radius: 50%;
+            font-family: 'Arial';
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            pointer-events: none;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <div id="cmouse" class="cmouse">Drag</div>
+    <div class="stage">
+        <div class="container">
+          <div class="ring">
+            <div class="img" style="background-image: url(./clients/gamyam-bg.jpg);">
+                <img class="logo large" src="./clients/gamyam-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/hello-pub-bg.jpg);">
+                <img class="logo" src="./clients/hello-pub-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/heineken-bg.jpg);">
+                <div class="glass"><img class="logo large" src="./clients/heineken-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/lll-bg.jpg);">
+                <div class="glass"><img class="logo" src="./clients/lll-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/hangover-bg.jpg);">
+                <div class="glass"><img class="logo" src="./clients/hangover-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/godrej-bg.jpg);">
+                <div class="glass"><img class="logo dark" src="./clients/godrej-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/ceat-bg.jpg);">
+                <div class="glass"><img class="logo dark" src="./clients/ceat-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/hcg-bg.jpg);">
+                <img class="logo large" src="./clients/healthcare-global-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/google-bg.jpg);">
+                <div class="glass"><img class="logo dark" src="./clients/google-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/bcp-bg.jpg);">
+                <div class="glass"><img class="logo dark" src="./clients/bcp-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/rcb-bg.jpg);">
+                <div class="glass"><img class="logo" src="./clients/rcb-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/oneplus-bg.jpg);">
+                <img class="logo large" src="./clients/oneplus-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/ayatana-bg.jpg);">
+                <div class="glass"><img class="logo light" src="./clients/ayatana-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/bira-bg.jpg);">
+                <div class="glass"><img class="logo light" src="./clients/bira-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/clear-trip-bg.jpg);">
+                <div class="glass"><img class="logo light large" src="./clients/clear-trip-logo.png" alt=""></div>
+            </div>
+            <div class="img" style="background-image: url(./clients/angrezi-bg.png);">
+                <img class="logo dark" src="./clients/angrezi-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/cintacor-bg.jpg);">
+                <img class="logo" src="./clients/cintacor-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/destiny-bg.jpg);">
+                <img class="logo" src="./clients/destiny-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/sunday-soul-bg.jpg);">
+                <img class="logo" src="./clients/sunday-soul-logo.png" alt="">
+            </div>
+            <div class="img" style="background-image: url(./clients/nrai-bg.jpg);">
+                <img class="logo" src="./clients/nrai-logo.png" alt="">
+            </div>
+          </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <script>
+        let xPos = 0;
+
+        gsap.timeline()
+            .set('.ring', { rotationY:180 }) //set initial rotationY so the parallax jump happens off screen
+            .set('.img',  { // apply transform rotations to each image
+            rotateY: (i)=> i*-18,
+            transformOrigin: '50% 50% 1000px',
+            z: -1000,
+            backgroundPosition:(i)=>getBgPos(i),
+            backfaceVisibility:'hidden'
+            })    
+            .from('.img', {
+            duration:2.5,
+            y:200,
+            opacity:0,
+            stagger:0.05,
+            ease:'expo'
+            })
+            .add(()=>{
+            $('.img').on('mouseenter', (e)=>{
+                let current = e.currentTarget;
+                gsap.to('.img', {opacity:(i,t)=>(t==current)? 1:1, ease:'power3'})
+            })
+            $('.img').on('mouseleave', (e)=>{
+                gsap.to('.img', {opacity:1, ease:'power2.inOut'})
+            })
+            }, '-=0.5')
+
+        $(window).on('mousedown touchstart', dragStart);
+        $(window).on('mouseup touchend', dragEnd);
+            
+
+        function dragStart(e){ 
+        if (e.touches) e.clientX = e.touches[0].clientX;
+        xPos = Math.round(e.clientX);
+        gsap.set('.ring', {cursor:'none'})
+        $(window).on('mousemove touchmove', drag);
+        }
+
+
+        function drag(e){
+        if (e.touches) e.clientX = e.touches[0].clientX;    
+
+        gsap.to('.ring', {
+            rotationY: '-=' +( (Math.round(e.clientX)-xPos)%360 ),
+            onUpdate:()=>{ gsap.set('.img', { backgroundPosition:(i)=>getBgPos(i) }) }
+        });
+        
+        xPos = Math.round(e.clientX);
+        }
+
+
+        function dragEnd(e){
+        $(window).off('mousemove touchmove', drag);
+        }
+
+
+        function getBgPos(i){ //returns the background-position string to create parallax movement in each image
+        return ( 100-gsap.utils.wrap(0,360,gsap.getProperty('.ring', 'rotationY')-180-i*18)/360*500 )+'px 0px';
+        }
+    </script>
+    <script>
+        var cursor = document.querySelector('.cmouse');
+        document.addEventListener('mousemove', function(e){
+            var x = e.clientX;
+            var y = e.clientY;
+            cursor.animate({
+                left: `${e.clientX}px`,
+                top: `${e.clientY}px`
+            }, {duration: 1000, fill: "forwards"})
+            // cursor.style.transform = `translate3d(calc(${e.clientX}px - 50px), calc(${e.clientY}px - 50px), 0)`
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+@use '../abstracts/' as *;
+
+.circular-slider{
+    width: 100%;
+    height: 100%;
+    clip-path:  polygon(0% 5%, 99% 1%, 99% 100%, 50% 100%, 50% 100%, 25% 31%, 15% 35%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 12vh;
+    box-sizing: border-box;
+    position: relative;
+    margin-left: 50px;
+    top: -100px;
+}
+
+.circle {
+    display: grid;
+    grid-template-areas: "layer";
+    place-items: center;
+    border-radius: 50%;
+    --radius: 38vmin;
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
+    position: absolute;
+    &.second{
+        --radius: 22vmin;
+        margin-top: 16vh;
+    }
+  }
+  
+  .stat {
+    grid-area: layer;
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 50%;
+    &-container{
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 1rem 1rem 1rem #33333350;
+        @include flex();
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    @include flex();
+  
+    // Decimal value, 0-1 based on the child's index.
+    --d: calc(var(--i) / var(--total));
+    // Offset to get better starting placement on the circle
+    --r-offset: -0.25turn;
+    // Full circle
+    --r-amount: 1turn;
+    // Rotation based on the decimal and r modifiers
+    --r: calc((var(--r-amount) * var(--d)) + var(--r-offset));
+    // Rotate, transform out, then negative rotation so the content appears upright
+    --transform: rotate(var(--r)) translate(var(--radius)) rotate(calc(-1 * var(--r)));
+  
+    transform: var(--transform);
+    transition: transform var(--timeround) linear;
+    &:hover{
+        transform: var(--transform);
+    }
+    // transition-delay: calc(0.1s * var(--i));
+  }

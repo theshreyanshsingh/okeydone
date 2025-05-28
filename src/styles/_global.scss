@@ -1,0 +1,248 @@
+@use "./abstracts/" as *;
+
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+@font-face {
+  font-family: "AntiqueOlive";
+  src: url("../styles/fonts/AntiqueOlive.ttf");
+}
+
+@font-face {
+  font-family: "AntiqueMain";
+  src: url("../styles/fonts/Antique-Olive-Std-Black.ttf");
+}
+
+@font-face {
+  font-family: "AntiqueOliveBold";
+  src: url("../styles/fonts/AntiqueOliveBold.ttf");
+}
+
+@font-face {
+  font-family: "Matter";
+  src: url("../styles/fonts/Matter-Regular.ttf");
+}
+
+@font-face {
+  font-family: "MatterSemi";
+  src: url("../styles/fonts/Matter-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "MatterBold";
+  src: url("../styles/fonts/Matter-Bold.ttf");
+}
+
+@font-face {
+  font-family: "PelitaBold";
+  src: url("../styles/fonts/Pelita-Std-Bold.woff2");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.main {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: $fontFamily;
+  color: $txtColor;
+  font-size: $fontSizeNormal;
+  line-height: 1.5;
+  background-color: $bodyBg;
+  overflow-x: hidden;
+  font-display: swap;
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: #00000000 !important;
+    &-track {
+      width: 5px;
+      height: 100%;
+      background-color: $bodyBg;
+    }
+    &-thumb {
+      background-image: linear-gradient(
+        to bottom,
+        #a374ff10,
+        $purple,
+        #a374ff10
+      );
+      border-radius: 20px;
+    }
+  }
+}
+
+#loaderbg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bodyBg;
+  z-index: 1500;
+}
+
+.bw-client-slider-slide {
+  width: 140px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.bw-client-slider .swiper-slide {
+  display: flex;
+  justify-content: center;
+  padding: 0 5px;
+}
+
+/* Override the default swiper sizing */
+.bw-client-slider .swiper-wrapper {
+  align-items: center;
+}
+
+/* Ensure logos don't overflow their containers */
+.bw-client-slider-slide img {
+  max-width: 100%;
+}
+#globalLoader {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  background-color: $purple;
+  transition: all 0.6s ease-out;
+  &::before {
+    width: 120%;
+    position: absolute;
+    top: -15vh;
+    height: 20vh;
+    border-radius: 50% 50% 0% 0%;
+    content: "";
+    left: 0;
+    margin-inline: -10%;
+    z-index: 1999;
+    background-color: $purple;
+  }
+  &::after {
+    width: 120%;
+    position: absolute;
+    bottom: -15vh;
+    height: 20vh;
+    border-radius: 0% 0% 50% 50%;
+    content: "";
+    left: 0;
+    margin-inline: -10%;
+    z-index: 1999;
+    background-color: $purple;
+  }
+  @include flex(center, center);
+}
+
+section {
+  width: 100%;
+  @include mobile {
+    padding-inline: 6%;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+img {
+  width: 100%;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+.mb {
+  margin-bottom: $spacing;
+
+  @include tablet {
+    margin-bottom: $mobileSpacing;
+  }
+}
+
+.container {
+  width: 75%;
+  margin-inline: auto;
+  @include laptop {
+    width: 75%;
+  }
+  @include tablet {
+    width: 85%;
+  }
+  @include mobile {
+    width: 100%;
+    padding-inline: 20px;
+  }
+}
+
+.title {
+  font-size: $fontSizeMedium;
+  font-weight: 700;
+}
+
+.txt-success {
+  color: $green;
+}
+
+.txt-danger {
+  color: $red;
+}
+
+//backgrounds
+.bg-white {
+  background-color: $white;
+}
+
+.bg-black {
+  background-color: $black !important;
+}
+
+.bg-green {
+  background-color: $green !important;
+}
+
+.bg-blue {
+  background-color: $blue !important;
+}
+
+.bg-purple {
+  background-color: $purple !important;
+}
+
+.d-only {
+  display: block;
+  @include mobile {
+    display: none !important;
+  }
+}
+
+.m-only {
+  display: none !important;
+  @include mobile {
+    display: block !important;
+  }
+}
+
+.h-200 {
+  min-height: 200px;
+}

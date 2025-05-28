@@ -1,0 +1,474 @@
+@use '../abstracts/' as *;
+
+.home{
+    width: 100svw;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero{
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &-header{
+        font-family: 'AntiqueMain';
+        font-size: 7rem;
+        text-align: center;
+        color: $white;
+        width: 70%;
+        line-height: 7rem;
+        z-index: 1;
+        letter-spacing: -5px;
+        position: relative;
+        pointer-events: none;
+        margin-top: -15vh;
+        @include mobile{
+            font-size: 4rem;
+            line-height: 3.6rem;
+            font-weight: 500;
+            letter-spacing: -2px;
+        }
+        &-context{
+            font-size: 2rem;
+            line-height: 2rem;
+            letter-spacing: 0;
+            color: $accent;
+            margin-top: 8rem;
+            width: fit-content;
+            text-align: center;
+            margin-inline: auto;
+            @include mobile{
+                width: 100%;
+                text-align: center;
+                font-size: 1.2rem;
+                margin-top: 0rem;
+                margin-bottom: 20px;
+                line-height: 1.2rem;
+                transform: translateX(0%);
+            }
+        }
+        &-lines{
+            display: flex;
+            width: auto;
+            justify-content: center;
+            &-middle{
+                @include mobile{
+                    display: none;
+                }
+            }
+            &-line{
+                height: auto;
+                &.extra{
+                    color: $purple;
+                }
+            }
+        }
+    }
+    &-video{
+        position: absolute;
+        z-index: inherit;
+        width: 100vw;
+        height: 100vh;
+        @include flex();
+        overflow: hidden;
+        video{
+            width: 40vw;
+            height: 60vh;
+            object-fit: cover;
+            border-radius: 3rem;
+            position: relative;
+            z-index: 0;
+            @include mobile{
+                width: 80vw;
+                height: 50vh;
+                border-radius: 20px;
+            }
+        }
+        &-overlay{
+            width: 40vw;
+            height: 60vh;
+            position: absolute;
+            z-index: 1;
+            content: "";
+            margin: auto;
+            background-color: #00000090;
+            border-radius: 3rem;
+            border: none;
+            @include mobile{
+                width: 80vw;
+                height: 50vh;
+                border-radius: 20px;
+            }
+        }
+    }
+    &-cta{
+        position: absolute;
+        left: 58%;
+        top: 48%;
+        @include mobile{
+            left: 0;
+            right: 0;
+            top: 56%;
+            @include flex();
+        }
+        &.hcontact{
+            left: 67%;
+            top: 37%;
+            @include mobile{
+                left: 0;
+                right: 0;
+                @include flex();
+            }
+        }
+    }
+    &-down{
+        position: absolute;
+        left: -80px;
+        bottom: -80px;
+    }
+    &.home-contact{
+        font-size: 7rem;
+        line-height: 7.5rem !important;
+        height: 70vh;
+        @include mobile{
+            height: 50vh;
+            padding-top: 0vh !important;
+            .hero-header{
+                font-size: 3rem;
+                letter-spacing: 1px;
+                margin-bottom: 50px;
+                &.cc{
+                    letter-spacing: 0px !important;
+                    line-height: 3.5rem !important;
+                }
+            }
+        }
+    }
+    &.nobp{
+        padding-bottom: 0px !important;
+    }
+    @include mobile{
+        padding-bottom: 100px;
+    }
+}
+
+.clients{
+    margin-top: 20vh;
+    @include mobile{
+        margin-top: 0vh;
+        padding-top: 20vh;
+        margin-bottom: 15vh;
+    }
+    .container{
+        @include mobile{
+            padding-inline: 0px !important;
+        }
+    }
+    &-header{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 5rem;
+        @include mobile{
+            gap: 10px;
+            margin-bottom: 0rem;
+            flex-direction: column;
+            align-items: center;
+        }
+        &-title{
+            // font-family: 'Matter';
+            // font-weight: 700;
+            // font-size: 3rem;
+            // color: $purple;
+            // margin-top: 0.5rem;
+            // width: fit-content;
+            // text-align: center;
+            font-family: 'AntiqueMain';
+            text-transform: lowercase;
+            font-size: 5rem;
+            text-align: center;
+            color: $white;
+            margin-bottom: 2vh;
+            @include mobile{
+                font-size: 3.6rem;
+                line-height: 3.6rem;
+                text-align: left;
+            }
+        }
+        &-subtext{
+            font-family: 'Matter';
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            width: 70%;
+            color: $white;
+            text-align: center;
+            @include mobile{
+                width: 100%;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.2rem;
+                text-align: center;
+            }
+            .purple{
+                color: $purple;
+            }
+            .teal{
+                color: rgb(62, 255, 226);
+            }
+            .yellow{
+                color: $accent;
+            }
+            .orange{
+                color: $orange;
+            }
+        }
+    }
+    &-cta{
+        width: 100%;
+        height: 20vh;
+        @include flex();
+        @include mobile{
+            height: 10vh;
+            margin-top: -2vh;
+        }
+    }
+}
+
+.featured{
+    margin-block: 20vh 10vh;
+    @include mobile{
+        margin-top: 10vh;
+        margin-bottom: 15vh;
+    }
+    h1{
+        font-family: 'AntiqueMain';
+        font-size: 5rem;
+        text-align: center;
+        color: $white;
+        margin-bottom: 5vh;
+        @include mobile{
+            font-size: 3.6rem;
+            line-height: 3.6rem;
+            text-align: left;
+        }
+    }
+    &-container{
+        display: flex;
+        align-items: flex-start;
+        justify-content: var(--align);
+        gap: 50px;
+        margin-block: 50px;
+        @include mobile{
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        &.tilt{
+            &-left{
+                transform: rotate(-7deg);
+                @include mobile{
+                    transform: rotate(-2deg);
+                }
+            }
+            &-right{
+                transform: rotate(7deg) translateY(100px);
+                @include mobile{
+                    transform: rotate(2deg) translateY(-40px);
+                }
+            }
+        }
+    }
+    &-icon{
+        width: 300px;
+        height: 200px;
+        object-fit: contain;
+        margin-top: 1rem;
+        @include mobile{
+            width: 250px;
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+    &-content{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 10px;
+        padding: 20px;
+        height: 500px;
+        &-px{
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            &-bg{
+                position: relative;
+                &::before{
+                    background-color: #000000;
+                    height: 500px;
+                    width: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1;
+                }
+            }
+            &-in{
+                padding-block: 40px;
+                margin-left: 40px;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                justify-content: flex-end;
+                &.tilt{
+                    &-right{
+                        transform: rotate(7deg) !important;
+                        @include mobile{
+                            transform: rotate(2deg) !important;
+                        }
+                    }
+                    &-left{
+                        transform: rotate(-7deg) !important;
+                        @include mobile{
+                            transform: rotate(-2deg) !important;
+                        }
+                    }
+                }
+            }
+        }
+        @include mobile{
+            width: 100%;
+            height: 350px;
+            align-items: flex-start;
+        }
+        &-bg{
+            position: absolute;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            height: 200px;
+            top: 0;
+            left: 0;
+        }
+        h2{
+            font-family: 'Matter';
+            font-size: 1.6rem;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 2;
+            color: $white;
+            span{
+                color: $accent;
+            }
+            @include mobile{
+                text-align: left;
+                font-size: 1.2rem;
+                margin-top: 00px;
+            }
+        }
+        h5{
+            color: $mainColor;
+            font-size: 1rem;
+            font-family: 'Matter';
+            font-weight: 500;
+            pointer-events: none;
+            text-transform: uppercase;
+            z-index: 2;
+            @include mobile{
+                text-align: center;
+                font-size: 1rem;
+            }
+        }
+        &-link{
+            font-family: 'Matter';
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: $white;
+            position: relative;
+            width: fit-content;
+            overflow: hidden;
+            padding-bottom: 10px;
+            &:hover{
+                &::before, &::after{
+                    @include animate(moveline, 0.9s, ease-out, 1);
+                }
+            }
+            @include mobile{
+                font-size: 1.4rem;
+                font-weight: 500;
+            }
+            &::before{
+                position: absolute;
+                bottom: 0;
+                left: -110%;
+                content: "";
+                width: 100%;
+                height: 2px;
+                border-radius: 10px;
+                background-color: var(--color);
+            }
+            &::after{
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                content: "";
+                width: 100%;
+                height: 2px;
+                border-radius: 10px;
+                background-color: var(--color);
+            }
+            @include keyframes(moveline){
+                0%, 100%{transform: translateX(0);opacity: 1;}
+                97%{transform: translateX(100%);opacity: 1;}
+                98%{transform: translateX(100%);opacity: 0;}
+                98%{transform: translateX(0%);opacity: 1;}
+            }
+        }
+        &-backimg{
+            position: absolute;
+            margin: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 0;
+            &-box{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: visible !important;
+            }
+            &-img{
+                width: 200px;
+                height: 250px;
+                overflow: visible !important;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    transform: rotate(0deg);
+                    opacity: 0;
+                    border-radius: 20px;
+                    box-shadow: 0.5rem 0.5rem 2rem #00000030;
+                    transition: opacity 0.3s ease-in-out, transform 0.6s ease-in-out;
+                    &:hover{
+                        opacity: 1;
+                        transform: rotate(10deg)
+                    }
+                }
+            }
+        }
+    }
+}
