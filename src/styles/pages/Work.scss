@@ -1,749 +1,773 @@
-@use '../abstracts/' as *;
+@use "../abstracts/" as *;
 
-.work{
-    &-hero{
-        height: 65vh;
-        padding-top: 25vh;
-        @include mobile{
-            height: 42vh;
-        }
-        &-header{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 900px;
-            height: 100%;
-            margin-inline: auto;
-            h1{
-                width: fit-content;
-                text-align: center;
-                font-family: 'AntiqueMain';
-                font-size: 7rem;
-                color: $white;
-                line-height: 7rem;
-                z-index: 1;
-                letter-spacing: -5px;
-                &:last-child{
-                    align-self: flex-end;
-                    @include mobile{
-                        align-self: center;
-                    }
-                }
-                @include mobile{
-                    font-size: 3rem;
-                    line-height: 3.1rem;
-                    letter-spacing: -2px;
-                    align-self: center;
-                }
-            }
-        }
+.work {
+  &-hero {
+    height: 65vh;
+    padding-top: 25vh;
+    @include mobile {
+      height: 42vh;
     }
-    &-filter{
-        &-list{
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            &-button{
+    &-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 900px;
+      height: 100%;
+      margin-inline: auto;
+      h1 {
+        width: fit-content;
+        text-align: center;
+        font-family: "AntiqueMain";
+        font-size: 7rem;
+        color: $white;
+        line-height: 7rem;
+        z-index: 1;
+        letter-spacing: -5px;
+        &:last-child {
+          align-self: flex-end;
+          @include mobile {
+            align-self: center;
+          }
+        }
+        @include mobile {
+          font-size: 3rem;
+          line-height: 3.1rem;
+          letter-spacing: -2px;
+          align-self: center;
+        }
+      }
+    }
+  }
+  &-filter {
+    &-list {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      &-button {
+        display: none;
+        @include mobile {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 40px;
+          min-width: 40px;
+          margin-inline: auto;
+          border: 2px solid $purple;
+          border-radius: 50px;
+          font-size: 1rem;
+          padding-inline: 15px;
+          transition: all 0.3s ease-in-out;
+          font-family: "Matter";
+          line-height: 1rem;
+          background-color: transparent;
+          outline: none;
+          color: $white;
+          i {
+            transition: all 0.3s ease-in-out;
+          }
+        }
+        &.active {
+          background-color: $purple;
+          padding: 0;
+        }
+      }
+      @include mobile {
+        width: 70%;
+        margin-inline: auto;
+        border: 2px solid $purple;
+        background-color: $bodyBg;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0.5rem 0.5rem 2rem #00000030;
+        transform: scaleY(var(--scale));
+        transition: all 0.4s ease-in-out;
+        transform-origin: 50% 0%;
+      }
+      li {
+        a {
+          color: $white;
+          font-size: 1.5rem;
+          font-weight: 500;
+          font-family: "Matter";
+          @include mobile {
+            font-size: 1.2rem;
+            line-height: 2rem;
+          }
+          position: relative;
+          &.active {
+            color: $accent;
+            &::after {
+              content: "";
+              width: 6px;
+              height: 6px;
+              background-color: $accent;
+              border-radius: 20px;
+              position: absolute;
+              bottom: -15px;
+              left: 0;
+              right: 0;
+              margin-inline: auto;
+              @include mobile {
                 display: none;
-                @include mobile{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 40px;
-                    min-width: 40px;
-                    margin-inline: auto;
-                    border: 2px solid $purple;
-                    border-radius: 50px;
-                    font-size: 1rem;
-                    padding-inline: 15px;
-                    transition: all 0.3s ease-in-out;
-                    font-family: 'Matter';
-                    line-height: 1rem;
-                    background-color: transparent;
-                    outline: none;
-                    color: $white;
-                    i{
-                        transition: all 0.3s ease-in-out;
-                    }
-                }
-                &.active{
-                    background-color: $purple;
-                    padding: 0;
-                }
+              }
             }
-            @include mobile{
-                width: 70%;
-                margin-inline: auto;
-                border: 2px solid $purple;
-                background-color: $bodyBg;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0.5rem 0.5rem 2rem #00000030;
-                transform: scaleY(var(--scale));
-                transition: all 0.4s ease-in-out;
-                transform-origin: 50% 0%;
-            }
-            li{
-                a{
-                    color: $white;
-                    font-size: 1.5rem;
-                    font-weight: 500;
-                    font-family: 'Matter';
-                    @include mobile{
-                        font-size: 1.2rem;
-                        line-height:2rem;
-                    }
-                    position: relative;
-                    &.active{
-                        color: $accent;
-                        &::after{
-                            content: "";
-                            width: 6px;
-                            height: 6px;
-                            background-color: $accent;
-                            border-radius: 20px;
-                            position: absolute;
-                            bottom: -15px;
-                            left: 0;
-                            right:0;
-                            margin-inline: auto;
-                            @include mobile{
-                                display: none;
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
     }
-    &-box{
-        display: grid;
-        grid-template-columns: 50% 50%;
-        margin-top: 10vh;
-        margin-bottom: 20vh;
-        @include mobile{
-            grid-template-columns: 100%;
-            margin-top: 0vh;
+  }
+  &-box {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+    @include mobile {
+      grid-template-columns: 100%;
+      margin-top: 0vh;
+    }
+    &-item {
+      position: relative;
+      width: 90%;
+      height: 350px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0.5rem 0.5rem 1rem #00000030;
+      margin-bottom: 10%;
+      &:nth-child(even) {
+        transform: translateY(100px);
+        @include mobile {
+          transform: translateY(0);
         }
-        &-item{
+      }
+      @include mobile {
+        width: 100%;
+        height: 35vh;
+        border-radius: 20px;
+      }
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        z-index: 0;
+      }
+      &-content {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-image: linear-gradient(to bottom, #00000000, #000000c0);
+        @include mobile {
+          padding: 20px;
+        }
+        h1 {
+          color: $white;
+          font-family: "AntiqueMain";
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+        &-categories {
+          display: flex;
+          gap: 25px;
+          li {
+            font-family: "Matter";
+            font-size: 0.9rem;
+            color: $white;
             position: relative;
-            width: 90%;
-            height: 350px;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0.5rem 0.5rem 1rem #00000030;
-            margin-bottom: 10%;
-            &:nth-child(even){
-                transform: translateY(100px);
-                @include mobile{
-                    transform: translateY(0);
-                }
+            @include mobile {
+              font-size: 0.9rem;
             }
-            @include mobile{
-                width: 100%;
-                height: 35vh;
-                border-radius: 20px;
+            &:first-child {
+              &::before {
+                display: none;
+              }
             }
-            img{
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: top center;
-                z-index: 0;
+            &::before {
+              content: "•";
+              color: $white;
+              font-size: 0.8rem;
+              margin-block: auto;
+              left: -15px;
+              top: 2px;
+              position: absolute;
             }
-            &-content{
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                bottom: 0;
-                left: 0;
-                z-index: 1;
-                padding: 30px 20px;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                background-image: linear-gradient(to bottom, #00000000, #000000C0);
-                @include mobile{
-                    padding: 20px;
-                }
-                h1{
-                    color: $white;
-                    font-family: 'AntiqueMain';
-                    font-size: 1.5rem;
-                    font-weight: 600;
-                }
-                &-categories{
-                    display: flex;
-                    gap: 25px;
-                    li{
-                        font-family: 'Matter';
-                        font-size: 0.9rem;
-                        color: $white;
-                        position: relative;
-                        @include mobile{
-                            font-size: 0.9rem;
-                        }
-                        &:first-child{
-                            &::before{
-                                display: none;
-                            }
-                        }
-                        &::before{
-                            content: "•";
-                            color: $white;
-                            font-size: 0.8rem;
-                            margin-block: auto;
-                            left: -15px;
-                            top: 2px;
-                            position: absolute;
-                        }
-                    }
-                }
-                &-title{
-                    font-family: 'Matter';
-                    color: $white;
-                    font-size: 1.3rem;
-                    font-weight: 100;
-                    span{
-                        font-weight: 600;
-                    }
-                    @include mobile{
-                        font-size: 1rem;
-                    }
-                }
-            }
+          }
         }
+        &-title {
+          font-family: "Matter";
+          color: $white;
+          font-size: 1.3rem;
+          font-weight: 100;
+          span {
+            font-weight: 600;
+          }
+          @include mobile {
+            font-size: 1rem;
+          }
+        }
+      }
     }
+  }
 }
 
-.brandpage{
-    &-hero{
-        height: 60vh;
-        margin-bottom: 20vh;
-        width: 100%;
-        box-sizing: border-box;
-        background-color: #FAFAF6;
+.brandpage {
+  &-hero {
+    height: 70vh;
+    margin-bottom: 20vh;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fafaf6;
+    position: relative;
+    z-index: 0;
+    @include mobile {
+      height: 60vh;
+    }
+    &.page {
+      &::after {
+        bottom: -5vh;
+      }
+      height: 50vh !important;
+      margin-bottom: 20vh;
+    }
+    &::after {
+      position: absolute;
+      width: 150%;
+      left: -25%;
+      height: 30vh;
+      content: "";
+      bottom: -10vh;
+      background-color: #fafaf6;
+      border-radius: 0 0 70% 70%;
+      z-index: -1;
+    }
+    &-casestudy {
+      text-align: center;
+      font-family: "Matter";
+      font-size: 3rem;
+      font-weight: 800;
+      color: $black;
+      letter-spacing: -1px;
+      padding-top: 2vh;
+      margin-bottom: 10vh;
+      @include mobile {
+        margin-bottom: 4vh;
+        font-size: 2rem;
+      }
+    }
+    &-container {
+      padding-top: 0vh;
+      @include mobile {
+        padding-top: 10vh;
+      }
+    }
+    &-back {
+      position: absolute;
+      left: -120px;
+      top: -120px;
+      transform: rotate(90deg);
+      @include mobile {
+        left: -100px;
+        top: -80px;
+        transform: rotate(90deg) scale(0.7);
+      }
+    }
+    &-title {
+      font-size: 3.5rem;
+      font-weight: 500;
+      margin-top: 0px;
+      font-family: "AntiqueMain";
+      &.purple {
+        color: $purple;
+      }
+      &.teal {
+        color: $teal;
+      }
+      &.yellow {
+        color: $accent;
+      }
+      &.orange {
+        color: $mainColor;
+      }
+      &.blue {
+        color: $blue;
+      }
+      &.red {
+        color: $red;
+      }
+      &.black {
+        color: $black;
+      }
+      &.gold {
+        background: -webkit-linear-gradient(#bf9235, #f8eeb0, #bf9235);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      @include mobile {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .logo {
+        width: 280px;
+        height: 200px;
+        @include mobile {
+          width: 180px;
+          height: 140px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    &-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+      @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      a {
+        width: fit-content;
+        padding: 10px 20px;
+        font-family: "Matter";
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $purple;
+        border: 1px solid $purple;
+        border-radius: 50px;
+        transition: all 0.3s ease-in-out;
+        @include mobile {
+          padding: 8px 25px;
+          font-size: 0.8rem;
+          margin-top: 20px;
+        }
+        &:hover {
+          background-color: purple;
+          color: $white;
+        }
+      }
+    }
+    &-categories {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      @include mobile {
+        display: block;
+        width: fit-content;
+        margin-inline: auto;
+      }
+      li {
+        font-family: "Matter";
+        font-weight: 600;
+        font-size: 1rem;
         position: relative;
-        z-index: 0;
-        @include mobile{
-            height: 50vh;
+        text-transform: uppercase;
+        @include mobile {
+          font-size: 0.8rem;
+          list-style: disc;
+          width: 100%;
         }
-        &.page{
-            &::after{
-                bottom: -5vh;
-            }
-            height: 50vh !important;
-            margin-bottom: 20vh;
-        }
-        &::after{
-            position: absolute;
-            width: 150%;
-            left: -25%;
-            height: 30vh;
+        &:not(:last-child) {
+          &::after {
             content: "";
-            bottom: -10vh;
-            background-color: #FAFAF6;
-            border-radius: 0 0 70% 70%;
-            z-index: -1;
-        }
-        &-casestudy{
-            text-align: center;
-            font-family: 'Matter';
-            font-size: 3rem;
-            font-weight: 800;
-            color: $black;
-            letter-spacing: -1px;
-            padding-top: 2vh;
-            margin-bottom: 10vh;
-            @include mobile{
-                margin-bottom: 4vh;
-                font-size: 2rem;
-            }
-        }
-        &-container{
-            padding-top: 0vh;
-            @include mobile{
-                padding-top: 10vh;
-            }
-        }
-        &-back{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: $purple;
             position: absolute;
-            left: -120px;
-            top: -120px;
-            transform: rotate(90deg);
-            @include mobile{
-                left: -100px;
-                top: -80px;
-                transform: rotate(90deg) scale(0.7);
+            right: -18px;
+            top: 2px;
+            bottom: 0;
+            margin-block: auto;
+            @include mobile {
+              display: none;
             }
+          }
         }
-        &-title{
-            font-size: 3.5rem;
-            font-weight: 500;
-            margin-top: 0px;
-            font-family: 'AntiqueMain';
-            &.purple{color: $purple;}
-            &.teal{color: $teal;}
-            &.yellow{color: $accent;}
-            &.orange{color: $mainColor;}
-            &.blue{color: $blue;}
-            &.red{color: $red;}
-            &.black{color: $black;}
-            &.gold{
-                background: -webkit-linear-gradient(#BF9235, #F8EEB0, #BF9235);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            display: flex;
-            gap: 20px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            @include mobile{
-                font-size: 1.5rem;
-                text-align: center;
-            }
-            .logo{
-                width: 280px;
-                height: 200px;
-                @include mobile{
-                    width: 180px;
-                    height: 140px;
-                }
-                img{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
-            }
-        }
-        &-footer{
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            @include mobile{
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            a{
-                width: fit-content;
-                padding: 10px 20px;
-                font-family: 'Matter';
-                text-transform: uppercase;
-                font-size: 1rem;
-                font-weight: 500;
-                color: $purple;
-                border: 1px solid $purple;
-                border-radius: 50px;
-                transition: all 0.3s ease-in-out;
-                @include mobile{
-                    padding: 8px 25px;
-                    font-size: 0.8rem;
-                    margin-top: 20px;
-                }
-                &:hover{
-                    background-color: purple;
-                    color: $white;
-                }
-            }
-        }
-        &-categories{
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            @include mobile{
-                display: block;
-                width: fit-content;
-                margin-inline: auto;
-            }
-            li{
-                font-family: 'Matter';
-                font-weight: 600;
-                font-size: 1rem;
-                position: relative;
-                text-transform: uppercase;
-                @include mobile{
-                    font-size: 0.8rem;
-                    list-style: disc;
-                    width: 100%;
-                }
-                &:not(:last-child){
-                    &::after{
-                        content: "";
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 50%;
-                        background-color: $purple;
-                        position: absolute;
-                        right: -18px;
-                        top: 2px;
-                        bottom: 0;
-                        margin-block: auto;
-                        @include mobile{
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
+      }
     }
-    &-section{
-        &-brand{
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            h1{
-                color: $white;
-                font-family: 'AntiqueMain';
-                font-size: 1.5rem;
-                text-align: center;
-                @include mobile{
-                    margin-top: 1rem;
-                    font-size: 1.5rem;
-                }
-                span{
-                    color: $accent;
-                }
-            }
-            .logo{
-                width: 300px;
-                height: 10rem;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                img{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
-            }
+  }
+  &-section {
+    &-brand {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        color: $white;
+        font-family: "AntiqueMain";
+        font-size: 1.5rem;
+        text-align: center;
+        @include mobile {
+          margin-top: 1rem;
+          font-size: 1.5rem;
         }
-        &-content{
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            min-height: 40vh;
-            margin-top: 50px;
-            padding-top: 100px;
-            &.notop{
-                margin-top: 0;
-                padding-top: 0;
-            }
-            @include mobile{
-                flex-direction: column;
-                justify-content: flex-start;
-                min-height: unset;
-                margin-top: 0;
-                padding-bottom: 0vh;
-            }
-            .title{
-                width: 40%;
-                @include mobile{
-                    width: 100%;
-                }
-                h2{
-                    font-family: 'AntiqueMain';
-                    color: $white;
-                    font-size: 2.2rem;
-                    @include mobile{
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
-            .subtitle{
-                width: 50%;
-                @include mobile{
-                    width: 100%;
-                    padding-left: 20px;
-                }
-                ul{
-                    li{
-                        color: $white;
-                        font-family: 'Matter';
-                        font-weight: 100;
-                        line-height: 1.8rem;
-                        span{
-                            color: $accent !important;
-                        }
-                        @include mobile{
-                            font-size: 0.9rem;
-                            line-height: 1.1rem;
-                        }
-                        &::before {
-                            content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
-                            color: $purple; /* Change the color */
-                            font-weight: bold; /* If you want it to be bold */
-                            display: inline-block; /* Needed to add space between the bullet and the text */
-                            width: 1em; /* Also needed for space (tweak if needed) */
-                            margin-left: -1em; /* Also needed for space (tweak if needed) */
-                          }
-                          margin-bottom: 10px;
-                    }
-                }
-            }
+        span {
+          color: $accent;
         }
-        &-chart{
-            background: #000000A0;
-            box-shadow: 0 8px 32px 0 #00000050;
-            // backdrop-filter: blur( 10px );
-            // -webkit-backdrop-filter: blur( 10px );
-            border: 1px solid #00000020;
-            padding: 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            margin-top: 10vh;
-            max-width: 700px;
+      }
+      .logo {
+        width: 300px;
+        height: 10rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    &-content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      min-height: 40vh;
+      margin-top: 50px;
+      padding-top: 100px;
+      &.notop {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      @include mobile {
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: unset;
+        margin-top: 0;
+        padding-bottom: 0vh;
+      }
+      .title {
+        width: 40%;
+        @include mobile {
+          width: 100%;
+        }
+        h2 {
+          font-family: "AntiqueMain";
+          color: $white;
+          font-size: 2.2rem;
+          @include mobile {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+        }
+      }
+      .subtitle {
+        width: 50%;
+        @include mobile {
+          width: 100%;
+          padding-left: 20px;
+        }
+        ul {
+          li {
+            color: $white;
+            font-family: "Matter";
+            font-weight: 100;
+            line-height: 1.8rem;
+            span {
+              color: $accent !important;
+            }
+            @include mobile {
+              font-size: 0.9rem;
+              line-height: 1.1rem;
+            }
+            &::before {
+              content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+              color: $purple; /* Change the color */
+              font-weight: bold; /* If you want it to be bold */
+              display: inline-block; /* Needed to add space between the bullet and the text */
+              width: 1em; /* Also needed for space (tweak if needed) */
+              margin-left: -1em; /* Also needed for space (tweak if needed) */
+            }
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+    &-chart {
+      background: #000000a0;
+      box-shadow: 0 8px 32px 0 #00000050;
+      // backdrop-filter: blur( 10px );
+      // -webkit-backdrop-filter: blur( 10px );
+      border: 1px solid #00000020;
+      padding: 30px;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin-top: 10vh;
+      max-width: 700px;
+      margin-inline: auto;
+      @include mobile {
+        padding: 15px;
+        border-radius: 15px;
+      }
+      .title {
+        width: 100%;
+        text-align: center;
+        h2 {
+          font-family: "AntiqueMain";
+          color: $white;
+          font-size: 2.2rem;
+          @include mobile {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+    &-image {
+      width: 100%;
+      height: 70vh;
+      box-shadow: 0 8px 32px 0 #00000050;
+      border-radius: 30px;
+      margin-top: 10vh;
+      box-sizing: border-box;
+      overflow: hidden;
+      &.notop {
+        margin-top: 0vh;
+        @include mobile {
+          margin-top: 50px;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      @include mobile {
+        border-radius: 15px;
+        height: 30vh;
+        margin-top: 50px;
+        box-sizing: border-box;
+      }
+    }
+    &-campaign {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 50vh;
+      margin-top: 50px;
+      padding-top: 0px;
+      @include mobile {
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: unset;
+        margin-top: 50px;
+      }
+      &.mbottom {
+        @include mobile {
+          margin-bottom: 10vh;
+        }
+      }
+      .title {
+        width: 100%;
+        h2 {
+          font-family: "AntiqueMain";
+          color: $white;
+          font-size: 2.2rem;
+          margin-bottom: 50px;
+          span {
+            font-size: 1.5rem;
+            color: var(--spancolor, #ffc64e);
+          }
+          @include mobile {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+        }
+      }
+      &-videos {
+        width: 100%;
+        margin-block: 0vh 10vh;
+        &-video {
+          width: 100%;
+          border-radius: 25px;
+          box-shadow: 0.5rem 0.5rem 1rem #00000030;
+          @include mobile {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+          }
+        }
+      }
+      &-slider {
+        height: 40vh;
+        width: 100%;
+        &.twitter {
+          height: 90vh;
+          margin-bottom: 5vh;
+        }
+        h2 {
+          width: 100%;
+          margin-block: 3rem 2rem;
+          text-align: center;
+          font-family: "AntiqueMain";
+          font-size: 2.5rem;
+          color: $white;
+          font-weight: 100;
+          letter-spacing: 2px;
+        }
+        img {
+          height: 300px;
+          object-fit: cover;
+          border-radius: 10px;
+          object-position: 50% 20%;
+        }
+        .swiper {
+          @include mobile {
+            overflow: visible !important;
+          }
+        }
+        .swiper-horizontal
+          > .swiper-pagination-bullets
+          .swiper-pagination-bullet,
+        .swiper-pagination-horizontal.swiper-pagination-bullets
+          .swiper-pagination-bullet {
+          background-color: $white;
+        }
+      }
+      &-stats {
+        width: 100%;
+        margin-bottom: 50px;
+        .counter-box {
+          background-image: linear-gradient(
+            to bottom right,
+            #ffc64e20,
+            #ffffff10
+          );
+          box-shadow: 0 8px 32px 0 #00000050;
+          // backdrop-filter: blur( 5.5px );
+          // -webkit-backdrop-filter: blur( 5.5px );
+          border-radius: 15px;
+          // border: 2px solid rgba( 255, 255, 255, 0.28 );
+          width: 100%;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          @include mobile {
+            margin-bottom: 20px;
+          }
+          &-icon {
+            svg {
+              object-fit: contain;
+              transform: scale(2) !important;
+            }
+            &.normal {
+              svg {
+                transform: scale(1) !important;
+              }
+            }
+          }
+          &-title {
+            font-family: "Matter";
+            color: $white;
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-transform: uppercase;
+          }
+          &-counter {
+            display: flex;
+            gap: 5px;
+            &-number {
+              font-family: "Matter";
+              font-size: 2.6rem;
+              color: $white;
+              font-weight: 600;
+              @include mobile {
+                font-size: 1.8rem;
+              }
+            }
+          }
+          @include mobile {
+            max-width: 300px;
             margin-inline: auto;
-            @include mobile{
-                padding: 15px;
-                border-radius: 15px;
-            }
-            .title{
-                width: 100%;
-                text-align: center;
-                h2{
-                    font-family: 'AntiqueMain';
-                    color: $white;
-                    font-size: 2.2rem;
-                    @include mobile{
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
+          }
         }
-        &-image{
-            width: 100%;
-            height: 70vh;
-            box-shadow: 0 8px 32px 0 #00000050;
-            border-radius: 30px;
-            margin-top: 10vh;
-            box-sizing: border-box;
-            overflow: hidden;
-            &.notop{
-                margin-top: 0vh;
-                @include mobile{
-                    margin-top: 50px;
-                }
-            }
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-            }
-            @include mobile{
-                border-radius: 15px;
-                height: 30vh;
-                margin-top: 50px;
-                box-sizing: border-box;
-            }
+        &-head {
+          font-family: "Matter";
+          font-size: 2rem;
+          font-weight: 600;
+          color: $white;
+          margin-bottom: 20px;
+          @include mobile {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+          }
         }
-        &-campaign{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 50vh;
-            margin-top: 50px;
-            padding-top: 0px;
-            @include mobile{
-                flex-direction: column;
-                justify-content: flex-start;
-                min-height: unset;
-                margin-top: 50px;
+        &-list {
+          li {
+            list-style: disc;
+            margin-left: 20px;
+            font-family: "Matter";
+            font-size: 1.1rem;
+            color: $white;
+            font-weight: 100;
+            margin-bottom: 10px;
+            span {
+              color: $accent !important;
             }
-            &.mbottom{
-                @include mobile{
-                    margin-bottom: 10vh;
-                }
+            @include mobile {
+              font-size: 0.9rem;
+              margin-inline: 40px 20px;
             }
-            .title{
-                width: 100%;
-                h2{
-                    font-family: 'AntiqueMain';
-                    color: $white;
-                    font-size: 2.2rem;
-                    margin-bottom: 50px;
-                    span{
-                        font-size: 1.5rem;
-                        color: var(--spancolor, #FFC64E);
-                    }
-                    @include mobile{
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
-            &-videos{
-                width: 100%;
-                margin-block: 0vh 10vh;
-                &-video{
-                    width: 100%;
-                    border-radius: 25px;
-                    box-shadow: 0.5rem 0.5rem 1rem #00000030;
-                    @include mobile{
-                        width: 100%;
-                        border-radius: 10px;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
-            &-slider{
-                height: 40vh;
-                width: 100%;
-                &.twitter{
-                    height: 90vh;
-                    margin-bottom: 5vh;
-                }
-                h2{
-                    width: 100%;
-                    margin-block: 3rem 2rem;
-                    text-align: center;
-                    font-family: 'AntiqueMain';
-                    font-size: 2.5rem;
-                    color: $white;
-                    font-weight: 100;
-                    letter-spacing: 2px;
-                }
-                img{
-                    height: 300px;
-                    object-fit: cover;
-                    border-radius: 10px;
-                    object-position: 50% 20%;
-                }
-                .swiper{
-                    @include mobile{
-                        overflow: visible !important;
-                    }
-                }
-                .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
-                    background-color: $white;
-                }
-            }
-            &-stats{
-                width: 100%;
-                margin-bottom: 50px;
-                .counter-box{
-                    background-image: linear-gradient(to bottom right, #FFC64E20, #ffffff10);
-                    box-shadow: 0 8px 32px 0 #00000050;
-                    // backdrop-filter: blur( 5.5px );
-                    // -webkit-backdrop-filter: blur( 5.5px );
-                    border-radius: 15px;
-                    // border: 2px solid rgba( 255, 255, 255, 0.28 );
-                    width: 100%;
-                    padding: 10px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-
-                    @include mobile{
-                        margin-bottom: 20px;
-                    }
-                    &-icon{
-                        svg{
-                            object-fit: contain;
-                            transform: scale(2) !important;
-                        }
-                        &.normal{
-                            svg{transform: scale(1) !important;}
-                        }
-                    }
-                    &-title{
-                        font-family: "Matter";
-                        color: $white;
-                        font-size: 0.8rem;
-                        font-weight: 400;
-                        text-transform: uppercase;
-                    }
-                    &-counter{
-                        display: flex;
-                        gap: 5px;
-                        &-number{
-                            font-family: "Matter";
-                            font-size: 2.6rem;
-                            color: $white;
-                            font-weight: 600;
-                            @include mobile{
-                                font-size: 1.8rem;
-                            }
-                        }
-                    }
-                    @include mobile{
-                        max-width: 300px;
-                        margin-inline: auto;
-                    }
-                }
-                &-head{
-                    font-family: 'Matter';
-                    font-size: 2rem;
-                    font-weight: 600;
-                    color: $white;
-                    margin-bottom: 20px;
-                    @include mobile{
-                        margin-top: 20px;
-                        text-align: center;
-                        font-size: 1.5rem;
-                    }
-                }
-                &-list{
-                    li{
-                        list-style: disc;
-                        margin-left: 20px;
-                        font-family: 'Matter';
-                        font-size: 1.1rem;
-                        color: $white;
-                        font-weight: 100;
-                        margin-bottom: 10px;
-                        span{
-                            color: $accent !important;
-                        }
-                        @include mobile{
-                            font-size: 0.9rem;
-                            margin-inline: 40px 20px;
-                        }
-                    }
-                }
-                &-image{
-                    width: 100%;
-                    border-radius: 20px;
-                    object-fit: cover;
-                    object-position: 50% 5%;
-                    height: 350px;
-                    @include mobile{
-                        height: 270px;
-                        margin-bottom: 20px;
-                    }
-                }
-                &-divider{
-                    height: 50px;
-                    width: 100%;
-                }
-            }
-
+          }
         }
-        &-contenteditor{
-            h1,h3{
-                color: $white;
-                font-family: 'Matter';
-                font-size: 1.2rem;
-                font-weight: 500;
-                margin-top: 20px;
-            }
-            p{
-                color: $white;
-                font-family: 'Matter';
-                font-size: 0.9rem;
-                font-weight: 100;
-                text-align: justify;
-            }
+        &-image {
+          width: 100%;
+          border-radius: 20px;
+          object-fit: cover;
+          object-position: 50% 5%;
+          height: 350px;
+          @include mobile {
+            height: 270px;
+            margin-bottom: 20px;
+          }
         }
+        &-divider {
+          height: 50px;
+          width: 100%;
+        }
+      }
     }
+    &-contenteditor {
+      h1,
+      h3 {
+        color: $white;
+        font-family: "Matter";
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 20px;
+      }
+      p {
+        color: $white;
+        font-family: "Matter";
+        font-size: 0.9rem;
+        font-weight: 100;
+        text-align: justify;
+      }
+    }
+  }
 }
