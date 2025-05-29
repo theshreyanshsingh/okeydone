@@ -9,15 +9,21 @@ import logo from "../../assets/brands/ayatana/Ayatana.png";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import ayatana2 from "../../assets/brands/ayatana/pic2.jpg";
+
 import slide1 from "../../assets/brands/ayatana/pic1.jpg";
-import slide2 from "../../assets/brands/ayatana/cover.jpg";
+// import slide2 from "../../assets/brands/ayatana/cover.jpg";
+import slide2 from "../../assets/brands/ayatana/_AK79105-min.jpg";
 import slide3 from "../../assets/brands/ayatana/pic3.jpg";
 import slide4 from "../../assets/brands/ayatana/pic4.jpg";
 import slide5 from "../../assets/brands/ayatana/pic5.jpg";
 import slide6 from "../../assets/brands/ayatana/pic6.jpg";
 import slide7 from "../../assets/brands/ayatana/pic7.jpg";
 import slide8 from "../../assets/brands/ayatana/pic8.jpg";
+import slide9 from "../../assets/brands/ayatana/_AK79392-min.jpg";
+import slide10 from "../../assets/brands/ayatana/_DKS6407_v1-min.jpg";
+import slide11 from "../../assets/brands/ayatana/_DKS7873-min.jpg";
+import slide12 from "../../assets/brands/ayatana/_DKS8329-min.jpg";
+import slide13 from "../../assets/brands/ayatana/_OKD7723-min.jpg";
 
 import CountUp from "react-countup";
 import dynamic from "next/dynamic";
@@ -27,29 +33,191 @@ const Lottie = dynamic(
   { ssr: false }
 );
 
-// import duration from "../../assets/animaticons/duration.json"
-// import spend from "../../assets/animaticons/spend.json"
+import duration from "../../assets/animaticons/duration.json";
 import interactions from "../../assets/animaticons/interactions.json";
+import followers from "../../assets/animaticons/followers.json";
 import { LoaderScreen } from "@/utilities";
 import Image from "next/image";
 
-// import followers from "../../assets/animaticons/followers.json"
+import React, { useState, useEffect, useRef } from "react";
+
+function useMotionValue(initial) {
+  const [value, setValue] = useState(initial);
+  return {
+    set: setValue,
+    get: () => value,
+  };
+}
+
+function useSpring(motionValue, config) {
+  const [value, setValue] = useState(motionValue.get());
+  const listenersRef = useRef(new Set());
+
+  return {
+    onChange: (callback) => {
+      listenersRef.current.add(callback);
+      return () => listenersRef.current.delete(callback);
+    },
+    set: (newValue) => {
+      setValue(newValue);
+      listenersRef.current.forEach((callback) => callback(newValue));
+    },
+  };
+}
+
+function useInView(ref, options) {
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && options?.once) {
+          setIsInView(true);
+        } else if (!options?.once) {
+          setIsInView(entry.isIntersecting);
+        }
+      },
+      { rootMargin: options?.margin || "0px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isInView;
+}
+
+function AnimatedCounter({ value, duration = 2 }) {
+  const ref = useRef(null);
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { duration: duration * 1000 });
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  const getNumericValue = (val) => {
+    if (typeof val === "string") {
+      const cleanValue = val.replace(/[,+]/g, "");
+
+      if (cleanValue.includes("k") || cleanValue.includes("K")) {
+        return parseFloat(cleanValue.replace(/[kK]/g, "")) * 1000;
+      } else if (cleanValue.includes("M") || cleanValue.includes("m")) {
+        return parseFloat(cleanValue.replace(/[Mm]/g, "")) * 1000000;
+      } else if (cleanValue.includes("Cr")) {
+        return parseFloat(cleanValue.replace(/Cr/g, "")) * 10000000;
+      } else if (cleanValue.includes("%")) {
+        return parseFloat(cleanValue.replace(/%/g, ""));
+      }
+      return parseFloat(cleanValue) || 0;
+    }
+    return val;
+  };
+
+  const formatDisplayValue = (num, originalValue) => {
+    if (typeof originalValue === "string") {
+      if (originalValue.includes("%")) {
+        return Math.round(num) + "%";
+      } else if (originalValue.includes("k") || originalValue.includes("K")) {
+        return (num / 1000).toFixed(num >= 1000 ? 0 : 1) + "k";
+      } else if (originalValue.includes("M")) {
+        return (num / 1000000).toFixed(1) + "M+";
+      } else if (originalValue.includes("Cr")) {
+        return Math.round(num / 10000000) + " Cr";
+      } else if (originalValue.includes(",")) {
+        return (
+          Math.round(num).toLocaleString() +
+          (originalValue.includes("+") ? "+" : "")
+        );
+      }
+    }
+    return Math.round(num);
+  };
+
+  useEffect(() => {
+    if (isInView) {
+      const numericTarget = getNumericValue(value);
+
+      // Animate to target value
+      let start = 0;
+      const startTime = Date.now();
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / (duration * 1000), 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+        const current = start + (numericTarget - start) * easeProgress;
+
+        setDisplayValue(current);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }
+  }, [isInView, value, duration]);
+
+  return <span ref={ref}>{formatDisplayValue(displayValue, value)}</span>;
+}
 
 function StatBlock({ value, label }) {
   return (
-    <div className="flex flex-col justify-center p-4 text-center w-full sm:w-auto">
-      <h2 className="text-2xl font-semibold">{value}</h2>
-      <p className="text-xs text-gray-300 mt-1 font-[AntiqueMain]">{label}</p>
+    <div className="flex flex-col justify-center p-4 sm:p-6 text-center w-full sm:w-auto min-w-0">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold break-words">
+        <AnimatedCounter value={value} />
+      </h2>
+      <p className="text-xs sm:text-sm text-white/80 mt-1 sm:mt-2 break-words">
+        {label}
+      </p>
     </div>
   );
 }
 
 function Divider() {
-  return (
-    <div className="w-px sm:h-[40px] self-center bg-[#3B312C] hidden sm:block" />
-  );
+  return <div className="hidden sm:block w-px bg-white/20 self-stretch my-4" />;
 }
 
+function OptimizedStatsCards() {
+  return (
+    <div className="my-28 flex items-center justify-center p-4">
+      <div className="text-white w-full max-w-6xl space-y-10">
+        {/* Top Row - Performance Marketing */}
+        <div className="flex flex-col sm:flex-row bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="flex flex-col sm:flex-row flex-1 justify-around items-center">
+            <StatBlock value="54,000+" label="Room nights sold" />
+            <Divider />
+            <StatBlock value="120 Cr" label="Revenue generated" />
+            <Divider />
+            <StatBlock value="90%" label="Occupancy rate" />
+          </div>
+          <div className="flex flex-col font-[AntiqueMain] justify-center items-center sm:items-end p-6 text-center sm:text-right bg-black/10">
+            <span className="font-bold text-sm sm:text-base">
+              Performance Marketing
+            </span>
+            <span className="text-xs text-white/80">(Jan 2021 – Dec 2024)</span>
+          </div>
+        </div>
+
+        {/* Bottom Row - Instagram */}
+        <div className="flex flex-col sm:flex-row bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl shadow-2xl overflow-hidden">
+          <div className="flex flex-col sm:flex-row flex-1 justify-around items-center">
+            <StatBlock value="220k" label="Followers" />
+            <Divider />
+            <StatBlock value="3.5M+" label="Interactions" />
+            <Divider />
+            <StatBlock value="10%" label="Engagement" />
+          </div>
+          <div className="flex flex-col font-[AntiqueMain] justify-center items-center sm:items-end p-6 text-center sm:text-right bg-black/10">
+            <span className="font-bold text-sm sm:text-base">INSTAGRAM</span>
+            <span className="text-xs text-white/80">(Jun 2018 – Dec 2024)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default function Ayatana() {
   const challenges = [
     "Competition from legacy brands",
@@ -81,7 +249,11 @@ export default function Ayatana() {
     "Generated ₹3 Cr+ in revenue during the lockdown (June–August 2020) through a successful ‘Future Travel Voucher’ campaign",
   ];
 
-  const rd = ["Followers 224k", "Interactions 3.2M+", "Views 50M +"];
+  const rd = [
+    { j: followers, t: "Followers 224k" },
+    { j: interactions, t: "Interactions 3.2M+" },
+    { j: duration, t: "Views 50M +" },
+  ];
 
   const reels = [
     "https://www.instagram.com/reel/DC6n05hhxg5/",
@@ -135,7 +307,7 @@ export default function Ayatana() {
               <iframe
                 src="https://drive.google.com/file/d/1cQoqVwjYak_NbVta2pnEEnJ4JdffhmpK/preview"
                 allow="autoplay"
-                className="h-[30vh] md:h-[50vh] sm:h-[80vh] sm:w-full overflow-clip rounded-lg mt-10"
+                className="h-[30vh] md:h-[500px] sm:h-[300px] sm:w-full overflow-clip rounded-lg mt-10"
               ></iframe>
             </div>
 
@@ -170,19 +342,23 @@ export default function Ayatana() {
               </h2>
             </div>
 
-            <div className="my-20 relative flex flex-col gap-10 items-center max-h-[60vh] overflow-y-auto no-scrollbar px-4 sm:px-10">
+            <div className="my-20 relative flex flex-col items-center max-h-[800px] overflow-y-auto no-scrollbar px-4 sm:px-10">
               <div className="flex flex-col w-full top-10">
                 {data.map((d, i) => (
                   <div
                     key={i}
-                    style={{ top: `${i * 64}px` }}
-                    className="sticky top-0  bg-opacity-20 backdrop-blur-sm px-4 sm:px-10 flex text-white font-[Matter] my-5 border-t border-white border-dashed"
+                    className={`sticky   bg-opacity-20 backdrop-blur-sm px-4 sm:px-10 flex text-white font-[Matter] border-t border-white border-dashed`}
+                    style={{
+                      top: `${i * 64}px`,
+                      zIndex: data.length + i,
+                      height: `${100 - i * 10}vh`,
+                    }}
                   >
-                    <div className="flex justify-between items-start w-full py-2 sm:py-4">
-                      <h3 className="min-w-[40px] sm:min-w-[60px] flex-shrink-0">
+                    <div className="flex justify-between items-start w-full py-1 sm:py-4">
+                      <h3 className="min-w-[40px] sm:min-w-[80px] flex-shrink-0">
                         0{i + 1}
                       </h3>
-                      <div className="ml-4 flex-grow">{d}</div>
+                      <div className="ml-4 flex-grow text-sm">{d}</div>
                     </div>
                   </div>
                 ))}
@@ -201,10 +377,10 @@ export default function Ayatana() {
 
             {/* Milestones */}
             <div className="brandpage-section-campaign">
-              <div className="title">
+              <div className="title justify-center items-center flex">
                 <h2>Milestones</h2>
               </div>
-              <div className="brandpage-section-campaign-stats">
+              <div className="brandpage-section-campaign-stats h-[100%]">
                 <div className="flex">
                   <div className="col-3 col-sm-12">
                     <motion.div
@@ -240,9 +416,9 @@ export default function Ayatana() {
                     </motion.div>
                   </div>
                   {/* web */}
-                  <div className="justify-between  hidden relative sm:flex flex-col gap-10 items-center h-[60vh] overflow-y-auto no-scrollbar">
+                  <div className="justify-between  hidden relative sm:flex flex-col gap-10 items-center h-[600px] overflow-y-auto no-scrollbar">
                     <div className="justify-center flex flex-col w-full top-10">
-                      {milestoreadata.map((d, i) => (
+                      {/* {milestoreadata.map((d, i) => (
                         <div
                           key={i}
                           style={{
@@ -250,9 +426,27 @@ export default function Ayatana() {
                           }}
                           className="sticky bg-white/1  backdrop-blur-sm top-0 px-20 flex gap-10 text-white font-[Matter] my-5  border-t-[0.5px] border-white border-dashed"
                         >
-                          <div className="h-screen flex justify-between items-start w-full py-4 gap-5">
+                          <div className="h-[200px] flex justify-between items-start w-full py-4 gap-5">
                             <h3>0{i + 1}</h3>
                             <div className="text-balance text-end ">{d}</div>
+                          </div>
+                        </div>
+                      ))} */}
+                      {milestoreadata.map((d, i) => (
+                        <div
+                          key={i}
+                          className={`sticky bg-opacity-20 backdrop-blur-sm px-4 sm:px-10 flex text-white font-[Matter] border-t border-white border-dashed`}
+                          style={{
+                            top: `${i * 64}px`,
+                            zIndex: data.length + i,
+                            height: `${100 - i * 10}vh`,
+                          }}
+                        >
+                          <div className="flex justify-between items-start w-full py-1 sm:py-4">
+                            <h3 className="min-w-[40px] sm:min-w-[80px] flex-shrink-0">
+                              0{i + 1}
+                            </h3>
+                            <div className="ml-4 flex-grow text-sm">{d}</div>
                           </div>
                         </div>
                       ))}
@@ -282,17 +476,26 @@ export default function Ayatana() {
             </div>
 
             {/* Count */}
-            <div className="flex flex-col sm:flex-col md:flex-row justify-center gap-6 w-full px-4">
+
+            <div className="flex flex-col sm:flex-col md:flex-row justify-center gap-2 w-full px-4">
               {rd.map((item, index) => (
                 <div key={index} className="group relative w-full md:flex-1">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
 
-                  <div className="relative p-6 flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
-                    <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative p-3 flex items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
+                    <div className="absolute top-0 justify-center items-center left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    <div className="relative z-10 text-center px-2">
-                      <p className="text-white font-semibold text-base leading-relaxed tracking-wide text-center">
-                        {item}
+                    <div className="flex items-center justify-center mr-4">
+                      <Lottie
+                        animationData={item.j}
+                        play
+                        style={{ width: 50, height: 70 }}
+                      />
+                    </div>
+
+                    <div className="relative z-10 text-center flex-1">
+                      <p className="text-white font-semibold text-base leading-relaxed tracking-wide text-left whitespace-pre-line">
+                        {item.t}
                       </p>
                     </div>
                   </div>
@@ -300,36 +503,10 @@ export default function Ayatana() {
               ))}
             </div>
 
-            <div className="text-white w-full my-28 mx-auto overflow-hidden space-y-10 px-4 sm:px-0">
-              {/* Top Row */}
-              <div className="flex flex-col sm:flex-row bg-[#2A211C] border-b rounded-lg gap-6 sm:gap-10 justify-between border-[#3B312C]">
-                <StatBlock value="54,000+" label="Room nights sold" />
-                <Divider />
-                <StatBlock value="120 Cr" label="Revenue generated" />
-                <Divider />
-                <StatBlock value="90%" label="Occupancy rate" />
-                <div className="flex flex-col font-sans justify-center items-center sm:items-end p-4 text-right text-xs text-gray-400 w-full sm:w-auto">
-                  <span>Performance Marketing</span>
-                  <span className="text-[11px]">(Jan 2021 – Dec 2024)</span>
-                </div>
-              </div>
-
-              {/* Bottom Row */}
-              <div className="flex flex-col sm:flex-row justify-between bg-[#2A211C] rounded-lg flex-wrap gap-6 sm:gap-10">
-                <StatBlock value="220k" label="Followers" />
-                <Divider />
-                <StatBlock value="3.5M+" label="Interactions" />
-                <Divider />
-                <StatBlock value="6–10%" label="Engagement" />
-                <div className="flex flex-col justify-center font-sans items-center sm:items-end p-4 text-right text-xs text-gray-400 w-full sm:w-auto">
-                  <span>INSTAGRAM</span>
-                  <span className="text-[11px]">(Jun 2018 – Dec 2024)</span>
-                </div>
-              </div>
-            </div>
+            {OptimizedStatsCards()}
 
             {/* Gallery */}
-            <div className="brandpage-section-campaign mbottom">
+            <div className="brandpage-section-campaign mbottom pb-[150px]">
               <div className="brandpage-section-campaign-slider">
                 <h2>Gallery</h2>
                 <Swiper
@@ -423,35 +600,117 @@ export default function Ayatana() {
                       alt=""
                     />
                   </SwiperSlide>
+                  <SwiperSlide className="brandpage-section-campaign-slider-slide">
+                    <Image
+                      width={500}
+                      height={400}
+                      quality={100}
+                      src={slide9.src}
+                      alt=""
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide className="brandpage-section-campaign-slider-slide">
+                    <Image
+                      width={500}
+                      height={400}
+                      quality={100}
+                      src={slide10.src}
+                      alt=""
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide className="brandpage-section-campaign-slider-slide">
+                    <Image
+                      width={500}
+                      height={400}
+                      quality={100}
+                      src={slide11.src}
+                      alt=""
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide className="brandpage-section-campaign-slider-slide">
+                    <Image
+                      width={500}
+                      height={400}
+                      quality={100}
+                      src={slide12.src}
+                      alt=""
+                    />
+                  </SwiperSlide>
+                  <SwiperSlide className="brandpage-section-campaign-slider-slide">
+                    <Image
+                      width={500}
+                      height={400}
+                      quality={100}
+                      src={slide13.src}
+                      alt=""
+                    />
+                  </SwiperSlide>
                 </Swiper>
               </div>
               <div></div>
             </div>
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 my-56 sm:my-40 overflow-x-auto md:overflow-visible snap-x snap-mandatory">
-              {reels.map((url, index) => (
-                <div
-                  key={index}
-                  className="group relative flex-none w-[70vw] md:w-auto snap-start"
+
+            {/* Reels */}
+            <div className="justify-center items-center flex flex-col overflow-hidden mt-[15%]">
+              <h2 className="font-[AntiqueMain] text-white text-[20px] sm:text-[2.2rem]">
+                Instagram Reels
+              </h2>
+
+              <div className="relative w-full max-w-full">
+                {/* Left scroll button - mobile only */}
+                <button
+                  className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                  onClick={() =>
+                    document
+                      .getElementById("reels-container")
+                      .scrollBy({ left: -280, behavior: "smooth" })
+                  }
                 >
-                  {/* Subtle glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+                  ←
+                </button>
 
-                  {/* Main card */}
-                  <div className="relative p-0 flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
-                    {/* Subtle accent line */}
-                    <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Right scroll button - mobile only */}
+                <button
+                  className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                  onClick={() =>
+                    document
+                      .getElementById("reels-container")
+                      .scrollBy({ left: 280, behavior: "smooth" })
+                  }
+                >
+                  →
+                </button>
 
-                    {/* Reels iframe */}
-                    <div className="relative w-full aspect-[9/16] bg-black overflow-hidden rounded-2xl">
-                      <iframe
-                        src={`${url}embed`}
-                        className="w-full aspect-[9/16] border-none"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                      />
+                <div
+                  id="reels-container"
+                  className="flex gap-6 my-10 overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                >
+                  {reels.map((url, index) => (
+                    <div
+                      key={index}
+                      className="group relative flex-none w-[70vw] md:w-auto snap-start"
+                    >
+                      {/* Subtle glow effect */}
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+
+                      {/* Main card */}
+                      <div className="relative p-0 flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
+                        {/* Subtle accent line */}
+                        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        {/* Reels iframe */}
+                        <div className="relative w-full aspect-[9/16] bg-black overflow-hidden rounded-2xl">
+                          <iframe
+                            src={`${url}embed`}
+                            className="w-full aspect-[9/16] border-none"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
           <p>&nbsp;</p>
