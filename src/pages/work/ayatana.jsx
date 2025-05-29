@@ -342,7 +342,7 @@ export default function Ayatana() {
               </h2>
             </div>
 
-            <div className="my-20 relative flex flex-col items-center max-h-[800px] overflow-y-auto no-scrollbar px-4 sm:px-10">
+            <div className="my-20 relative flex flex-col items-center h-[600px] overflow-y-auto no-scrollbar px-4 sm:px-10">
               <div className="flex flex-col w-full top-10">
                 {data.map((d, i) => (
                   <div
@@ -418,20 +418,6 @@ export default function Ayatana() {
                   {/* web */}
                   <div className="justify-between  hidden relative sm:flex flex-col gap-10 items-center h-[600px] overflow-y-auto no-scrollbar">
                     <div className="justify-center flex flex-col w-full top-10">
-                      {/* {milestoreadata.map((d, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            top: `${i * 64}px`,
-                          }}
-                          className="sticky bg-white/1  backdrop-blur-sm top-0 px-20 flex gap-10 text-white font-[Matter] my-5  border-t-[0.5px] border-white border-dashed"
-                        >
-                          <div className="h-[200px] flex justify-between items-start w-full py-4 gap-5">
-                            <h3>0{i + 1}</h3>
-                            <div className="text-balance text-end ">{d}</div>
-                          </div>
-                        </div>
-                      ))} */}
                       {milestoreadata.map((d, i) => (
                         <div
                           key={i}
@@ -459,7 +445,11 @@ export default function Ayatana() {
                     {milestoreadata.map((d, i) => (
                       <div
                         key={i}
-                        style={{ top: `${i * 64}px` }}
+                        style={{
+                          top: `${i * 64}px`,
+                          zIndex: data.length + i,
+                          height: `${100 - i * 10}vh`,
+                        }}
                         className="sticky top-0  bg-opacity-20 backdrop-blur-sm px-4 sm:px-10 flex text-white text-[13px] font-[Matter] my-5 border-t border-white border-dashed"
                       >
                         <div className="flex justify-between items-start w-full py-2 sm:py-4">
@@ -476,31 +466,74 @@ export default function Ayatana() {
             </div>
 
             {/* Count */}
-
-            <div className="flex flex-col sm:flex-col md:flex-row justify-center gap-2 w-full px-4">
-              {rd.map((item, index) => (
-                <div key={index} className="group relative w-full md:flex-1">
+            <div className="flex flex-col md:flex-row justify-center gap-4 w-full px-4">
+              <div className="group relative w-full flex flex-col md:flex-row justify-center items-center gap-4">
+                <div className="group relative w-full md:w-[30%] p-3 flex flex-col items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+                  <div className="absolute top-0 justify-center items-center left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  <div className="relative p-3 flex items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
-                    <div className="absolute top-0 justify-center items-center left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="flex items-center justify-center mr-4">
+                    <Lottie
+                      animationData={followers}
+                      play
+                      style={{ width: 150, height: 170 }}
+                    />
+                  </div>
 
-                    <div className="flex items-center justify-center mr-4">
-                      <Lottie
-                        animationData={item.j}
-                        play
-                        style={{ width: 50, height: 70 }}
-                      />
-                    </div>
-
-                    <div className="relative z-10 text-center flex-1">
-                      <p className="text-white font-semibold text-base leading-relaxed tracking-wide text-left whitespace-pre-line">
-                        {item.t}
-                      </p>
-                    </div>
+                  <div className="relative z-10 text-center flex-1">
+                    <p className="text-white font-sans font-semibold text-xl leading-relaxed tracking-wide text-left whitespace-pre-line">
+                      Followers
+                    </p>
+                    <p className="font-[AntiqueMain] text-3xl text-white">
+                      224k
+                    </p>
                   </div>
                 </div>
-              ))}
+
+                <div className="group relative w-full md:w-[30%] p-3 flex flex-col items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+                  <div className="absolute top-0 justify-center items-center left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="flex items-center justify-center mr-4">
+                    <Lottie
+                      animationData={interactions}
+                      play
+                      style={{ width: 150, height: 170 }}
+                    />
+                  </div>
+
+                  <div className="relative z-10 text-center flex-1">
+                    <p className="text-white font-sans font-semibold text-xl leading-relaxed tracking-wide text-left whitespace-pre-line">
+                      Interactions
+                    </p>
+                    <p className="font-[AntiqueMain] text-3xl text-white">
+                      3.2M+
+                    </p>
+                  </div>
+                </div>
+
+                <div className="group relative w-full md:w-[30%] p-3 flex flex-col items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+                  <div className="absolute top-0 justify-center items-center left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="flex items-center justify-center mr-4">
+                    <Lottie
+                      animationData={duration}
+                      play
+                      style={{ width: 250, height: 170 }}
+                    />
+                  </div>
+
+                  <div className="relative z-10 text-center flex-1">
+                    <p className="text-white font-sans font-semibold text-xl leading-relaxed tracking-wide text-left whitespace-pre-line">
+                      Views
+                    </p>
+                    <p className="font-[AntiqueMain] text-3xl text-white">
+                      50M+
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {OptimizedStatsCards()}
