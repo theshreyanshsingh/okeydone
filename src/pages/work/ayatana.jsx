@@ -44,6 +44,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 import "swiper/css";
 
+import oneimg from "../../assets/brands/ayatana/reels/1image.jpg";
+import twoimg from "../../assets/brands/ayatana/reels/2image.jpg";
+import threeimg from "../../assets/brands/ayatana/reels/3image.jpg";
+import fourimg from "../../assets/brands/ayatana/reels/4image.jpg";
+import fiveimg from "../../assets/brands/ayatana/reels/5image.jpg";
+
 function useMotionValue(initial) {
   const [value, setValue] = useState(initial);
   return {
@@ -284,12 +290,38 @@ export default function Ayatana() {
   ];
 
   const reels = [
-    "https://workdrive.zohopublic.in/embed/3rhq3f949a9c0f65d4ad3b2a056b441d9db07?toolbar=false&appearance=light&themecolor=green",
-    "https://workdrive.zohopublic.in/embed/3rhq30c266c76355549fe913ba5df0a319381?toolbar=false&appearance=light&themecolor=green",
-    "https://workdrive.zohopublic.in/embed/3rhq3399d43cac15b4f6595db5ccf3026ede7?toolbar=false&appearance=light&themecolor=gree",
-    "https://workdrive.zohopublic.in/embed/3rhq3ec7f6584bfba468895a883a1fbd2d1e4?toolbar=false&appearance=light&themecolor=green",
-    "https://workdrive.zohopublic.in/embed/3rhq350ad3cb8e74e451ea0856140ac9ff03c?toolbar=false&appearance=light&themecolor=green",
+    {
+      p: oneimg,
+      v: "/videos/1.mp4",
+    },
+    {
+      p: twoimg,
+      v: "/videos/2.mp4",
+    },
+    {
+      p: threeimg,
+      v: "/videos/3.mp4",
+    },
+    {
+      p: fourimg,
+      v: "/videos/4.mp4",
+    },
+    {
+      p: fiveimg,
+      v: "/videos/5.mp4",
+    },
   ];
+
+  const [playingStates, setPlayingStates] = useState(
+    reels.reduce((acc, _, index) => ({ ...acc, [index]: false }), {})
+  );
+
+  const handleClick = (index) => {
+    setPlayingStates((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
@@ -803,7 +835,7 @@ export default function Ayatana() {
                       id="reels-container"
                       className="no-scrollbar z-10 flex overflow-x-auto scrollbar-hide gap-4 p-4 scroll-smooth snap-x snap-mandatory"
                     >
-                      {reels.map((url, index) => (
+                      {reels.map((reel, index) => (
                         <div
                           key={index}
                           className="group z-10 relative flex-none w-[70%] md:w-auto snap-start"
@@ -811,12 +843,36 @@ export default function Ayatana() {
                           <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
                           <div className="relative p-0 flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 ease-out cursor-pointer hover:bg-white/10 hover:border-white/20 hover:shadow-xl hover:-translate-y-1 hover:shadow-blue-500/10">
                             <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative w-full aspect-[9/16] bg-black overflow-hidden rounded-2xl">
-                              <iframe
-                                src={`${url}embed`}
-                                className="w-full aspect-[9/16] border-none"
-                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                              />
+                            <div
+                              className="relative w-full aspect-[9/16] bg-black overflow-hidden rounded-2xl"
+                              onClick={() => handleClick(index)}
+                            >
+                              {playingStates[index] ? (
+                                <video
+                                  src={reel.v}
+                                  className="w-[255px] h-full object-cover"
+                                  autoPlay
+                                  muted
+                                  loop
+                                  playsInline
+                                  controls={false}
+                                />
+                              ) : (
+                                <>
+                                  <Image
+                                    height={400}
+                                    width={225}
+                                    src={reel.p}
+                                    className="w-full h-full object-cover"
+                                    alt="Video thumbnail"
+                                  />
+                                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="w-[60px] h-[60px] flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                      <div className="w-0 h-0 border-l-[12px] border-l-white border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1"></div>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         </div>
